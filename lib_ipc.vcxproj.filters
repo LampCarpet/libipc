@@ -18,15 +18,21 @@
     <ClInclude Include="dependencies.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="lib_ipc_core.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="utillity.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="libipc_system.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="libipc_core.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib_ipc.cpp">
+    <ClCompile Include="libipc_system.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="libipc_core.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,3 +3,6 @@
 #include <array>
 #include <atomic>
 #include <memory>
+
+#define WIN32
+

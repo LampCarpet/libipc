@@ -39,6 +39,7 @@ namespace libipc
 	template<typename T, unsigned number_of_ts>
 	class symbol_table
 	{
+		typedef t_ptr std::unique<std::array<T, number_of_ts>>;
 	public:
 		symbol_table() : n_str_pos_(0)
 		{
@@ -74,7 +75,7 @@ namespace libipc
 	private:
 		std::atomic<int> n_sym_pos_;
 		std::atomic_bool sym_load_;
-		std::array<T, number_of_ts> symbol_table_;
+		t_ptr symbol_table_;
 	};
 
 

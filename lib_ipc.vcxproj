@@ -81,6 +81,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>dependencies.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -116,12 +119,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="dependencies.h" />
+    <ClInclude Include="libipc_system.h" />
     <ClInclude Include="lib_ipc.h" />
-    <ClInclude Include="lib_ipc_core.h" />
+    <ClInclude Include="libipc_core.h" />
     <ClInclude Include="utillity.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib_ipc.cpp" />
+    <ClCompile Include="libipc_core.cpp" />
+    <ClCompile Include="libipc_system.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
