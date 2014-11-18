@@ -35,14 +35,21 @@ namespace libipc_system
 	}
 
 	template<typename T, HeapAccessControl os_flag>
-	T* CommitFromSystemHeap(unsigned size_in_bytes)
+	T* CommitFromSystemHeap(unsigned count)
 	{
 		void* tmp_ptr = nullptr;
 #ifdef WIN32
-		tmp_ptr = VirtualAlloc(NULL, size_in_bytes, MEM_COMMIT,details::OS_Flag<os_flag>());
+		tmp_ptr = VirtualAlloc(NULL, size_in_bytes*sizeof(T), MEM_COMMIT,details::OS_Flag<os_flag>());
 #endif
 		return reinterpret_cast<T*>(tmp_ptr);
 	}
 
-
+	template<typename T>
+	void DecommitFromSystemHeap(unsigned count, T* addr)
+	{
+		if (count == 0) { return; }
+#ifdef WIN32
+		VirtualFree(addr, count*sizeof(T), MEM_DECOMMIT);
+#endif
+	}
 }

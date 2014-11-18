@@ -1,5 +1,5 @@
 #pragma once
-#include "dependencies.h"
+#include <dependencies.h>
 
 
 
@@ -35,4 +35,5 @@ namespace libipc_utillities
 		T* data_;
 		unsigned allocs_;
 	};
+
 }

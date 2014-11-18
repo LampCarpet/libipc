@@ -1,6 +1,6 @@
 #pragma once
 #include "dependencies.h"
-#include "utillity.h"
+#include "libipc_system.h"
 
 
 
@@ -39,11 +39,20 @@ namespace libipc
 	template<typename T, unsigned number_of_ts>
 	class symbol_table
 	{
-		typedef t_ptr std::unique<std::array<T, number_of_ts>>;
 	public:
-		symbol_table() : n_str_pos_(0)
+		symbol_table() : n_str_pos_(0), allocated_(0)
 		{
 			str_load_.store(false);
+			symbol_table_ = libipc_system::CommitFromSystemHeap<T>(number_of_ts);
+			allocated_ = number_of_ts*sizeof(T);
+		}
+
+		~symbol_table()
+		{
+			if (allocated_ != 0) 
+			{
+				libipc_system::DecommitFromSystemHeap<T>(number_of_ts);
+			}
 		}
 
 		int register_symbol(const T value)
@@ -75,13 +84,13 @@ namespace libipc
 	private:
 		std::atomic<int> n_sym_pos_;
 		std::atomic_bool sym_load_;
-		t_ptr symbol_table_;
+		T* symbol_table_;
 	};
 
 
+	
 
-
-	class IpcSymbolTable
+	class IpcSymbolLookupTable
 	{
 	protected:
 		static const unsigned max_domains_ = max_domain_links*max_domain_depth;
@@ -90,18 +99,17 @@ namespace libipc
 
 
 	private:
+		symbol_table<void*, max_subscr_length> producers_;
+		symbol_table<void*, max_subscr_length> consumers_;
 		symbol_table<IpcDomain, max_domains_> domain_table_;
 		symbol_table<char[max_string_length],max_domains_> string_table_;
 		symbol_table<IpcPortInterfaceDescriptor, max_unique_interfaces> port_interfaces_;
 	};
 
-	class PortDescriptor
+	struct IpcPort
 	{
-	public:
-
-	private:
-
-		char port_name_[max_string_length];
+		void* subscribers[max_subscr_length];
+		unsigned sym_name_handle_, sym_interface_handle_;
 	};
 
 	class IpcDomain

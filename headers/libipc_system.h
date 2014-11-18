@@ -1,5 +1,5 @@
 #pragma once
-#include "dependencies.h"
+#include <dependencies.h>
 
 
 
@@ -10,6 +10,9 @@ namespace libipc_system
 		read_only, write_only,read_write, read_write_execute
 	};
 
-	template<typename T>
+	template<typename T, HeapAccessControl>
 	T* CommitFromSystemHeap(unsigned);
+
+	template<typename T>
+	void DecommitFromSystemHeap(unsigned)
 }

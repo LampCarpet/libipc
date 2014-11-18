@@ -1,6 +1,6 @@
 #pragma once
-#include "dependencies.h"
-#include "lib_ipc_core.h"
+#include <dependencies.h>
+#include <libipc_core.h>
 /*
 	domain
 	 -subscribers[]
