@@ -144,7 +144,7 @@ namespace libipc
 			unsigned sym_interface_handle;
 		};
 
-		class IpcDomain
+		class IpcDomain : symbol_table<IpcPort>, utillity::Array<IpcDomain>
 		{
 		public:
 			IpcDomain() : str_ref_(0)
@@ -152,7 +152,10 @@ namespace libipc
 
 			}
 			IpcDomain(const int domain_path_name_id)
-				: str_ref_(domain_path_name_id), links(max_domain_links, nullptr)
+			: 
+			str_ref_(domain_path_name_id), 
+			links_(max_domain_links, nullptr),
+			symbol_table<IpcPort>(max_port_per_domain)
 			{
 
 			}
@@ -162,10 +165,8 @@ namespace libipc
 				if (str_ref_ == 0) { return false; }
 				return true;
 			}
-
 		private:
-			symbol_table<IpcPort> ports_;
-			libipc_utillity::Array<IpcDomain*> links_;
+			utillity::Array<IpcDomain*> links_;
 			unsigned str_ref_;
 		};
 	}

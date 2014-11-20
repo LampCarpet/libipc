@@ -20,8 +20,8 @@ limitations under the License.
 */
 
 #pragma once
-#include <libipc_common.h>
-#include <libipc_system.h>
+#include <libipc\headers\common.h>
+#include <libipc\headers\types.h>
 
 
 

@@ -19,10 +19,10 @@ limitations under the License.
 
 */
 #pragma once
-#include <libipc_common.h>
-#include <libipc_system.h>
-#include <libipc_calc.h>
-#include <libipc_types.h>
+#include<libipc\headers\common.h>
+#include <libipc\headers\system.h>
+#include <libipc\headers\math.h>
+#include <libipc\headers\types.h>
 
 namespace libipc
 {
@@ -32,15 +32,30 @@ namespace libipc
 		using namespace system;
 		using namespace types;
 
-		class LargePageBlock
+		class LargePageBlock 
+		: ObjectMap<ObjectMapLims::u8_max_ports_per_domain, ObjectMapLims::u8_max_links_per_domain>
 		{
 		public:
 			LargePageBlock(unsigned);
 
+			template<typename T>
+			void DirectReferenceTo(handle, T&);
 
 
 		private:
 			byte* block_;
+			unsigned bytes_allocated_;
 		};
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
