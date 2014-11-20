@@ -19,44 +19,28 @@ limitations under the License.
 
 */
 #pragma once
-#include <libipc\headers\common.h>
-#include <libipc\headers\core.h>
-/*
-	domain
-	 -subscribers[]
-	 -ports[]
-	 -domain links[]
-*/
+#include <libipc_common.h>
+#include <libipc_system.h>
+#include <libipc_calc.h>
+#include <libipc_types.h>
 
 namespace libipc
 {
-	using namespace libipc::core;
-
-	extern "C"
+	namespace memory
 	{
-		static int Initialize
-		/*
-			Initializes the global symbol table object b
-		*/
-		( 
-		 unsigned,
-		 unsigned, 
-		 unsigned,
-		 unsigned
-		 );
+		using namespace calc;
+		using namespace system;
+		using namespace types;
 
-		Handle CreatePort(const char*, IpcPortInterfaceDescriptor);
-	
-		void WritePort(Handle port, const char* buffer, void* sync_obj);
-		void SubscribeToPort();
+		class LargePageBlock
+		{
+		public:
+			LargePageBlock(unsigned);
 
-		void ReadNextPacket();
+
+
+		private:
+			byte* block_;
+		};
 	}
 }
-
-
-
-
-
-
-

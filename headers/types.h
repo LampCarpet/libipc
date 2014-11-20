@@ -18,45 +18,36 @@ limitations under the License.
 
 
 */
+
 #pragma once
 #include <libipc\headers\common.h>
-#include <libipc\headers\core.h>
-/*
-	domain
-	 -subscribers[]
-	 -ports[]
-	 -domain links[]
-*/
 
 namespace libipc
 {
-	using namespace libipc::core;
-
-	extern "C"
+	namespace types
 	{
-		static int Initialize
-		/*
-			Initializes the global symbol table object b
-		*/
-		( 
-		 unsigned,
-		 unsigned, 
-		 unsigned,
-		 unsigned
-		 );
 
-		Handle CreatePort(const char*, IpcPortInterfaceDescriptor);
-	
-		void WritePort(Handle port, const char* buffer, void* sync_obj);
-		void SubscribeToPort();
+		typedef unsigned char u8;
+		typedef signed char s8;
+		typedef unsigned short u16;
+		typedef signed short s16;
+		typedef unsigned int u32;
+		typedef signed int s32;
+		
+		typedef u32 handle;
+		
+		typedef u8 byte;
 
-		void ReadNextPacket();
+		enum class type_limits
+		{
+
+		};
+
+		enum class handle_type
+		{
+			domain,
+			port,
+			symbol
+		};
 	}
 }
-
-
-
-
-
-
-
