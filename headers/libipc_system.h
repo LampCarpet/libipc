@@ -4,7 +4,7 @@
 
 
 
-namespace libipc_system
+namespace libipc
 {
 	namespace system
 	{

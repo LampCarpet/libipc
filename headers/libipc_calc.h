@@ -1,6 +1,6 @@
 #pragma once
 #include <libipc_common.h>
-
+#include <libipc_types.h>
 
 
 
@@ -9,12 +9,7 @@ namespace libipc
 {
 	namespace calc
 	{
-		typedef unsigned char u8;
-		typedef signed char s8;
-		typedef unsigned short u16;
-		typedef signed short s16;
-		typedef unsigned int u32;
-		typedef signed int s32;
+		using namespace types;
 
 		enum class ObjectMapLims
 		{
@@ -26,17 +21,7 @@ namespace libipc
 			u32_max_ports_per_domain
 		};
 
-		enum class type_limits
-		{
 
-		};
-
-		enum class handle_type
-		{
-			domain,
-			port,
-			symbol
-		};
 
 		template<ObjectMapLims, ObjectMapLims>
 		class ObjectMap

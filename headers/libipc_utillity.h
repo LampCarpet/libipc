@@ -4,11 +4,11 @@
 
 
 
-namespace libipc_utillity
+namespace libipc
 {
 	namespace utillity
 	{
-		using namespace libipc_system;
+		using namespace system;
 
 		template<typename T>
 		class Array
