@@ -15,6 +15,8 @@ namespace libipc
 		
 		typedef u32 handle;
 		
+		typedef u8 byte;
+
 		enum class type_limits
 		{
 
