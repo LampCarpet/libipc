@@ -1,5 +1,5 @@
 #pragma once
-#include <dependencies.h>
+#include <libipc_common.h>
 #include <libipc_core.h>
 /*
 	domain
@@ -10,14 +10,24 @@
 
 namespace libipc
 {
+	using namespace libipc::core;
+
 	extern "C"
 	{
+		static int Initialize
+		/*
+			Initializes the global symbol table object b
+		*/
+		( 
+		 unsigned,
+		 unsigned, 
+		 unsigned,
+		 unsigned
+		 );
 
-		static void InitializeIpcInterface(const std::vector<IpcPortInterfaceDescriptor>);
-
-
-		void CreatePort(const char*);
+		Handle CreatePort(const char*, IpcPortInterfaceDescriptor);
 	
+		void WritePort(Handle port, const char* buffer, void* sync_obj);
 		void SubscribeToPort();
 
 		void ReadNextPacket();

@@ -1,18 +1,22 @@
 #pragma once
-#include <dependencies.h>
+#include <libipc_common.h>
+#include <libipc_system.h>
 
 
 
 namespace libipc_system
 {
-	enum class HeapAccessControl
+	namespace system
 	{
-		read_only, write_only,read_write, read_write_execute
-	};
+		enum class HeapAccessControl
+		{
+			read_only, write_only, read_write, read_write_execute
+		};
 
-	template<typename T, HeapAccessControl>
-	T* CommitFromSystemHeap(unsigned);
+		template<typename T, HeapAccessControl OS_flag = HeapAccessControl::read_write>
+		T* CommitFromSystemHeap(unsigned count = 1);
 
-	template<typename T>
-	void DecommitFromSystemHeap(unsigned)
+		template<typename T>
+		void DecommitFromSystemHeap(unsigned, T*);
+	}
 }
