@@ -115,6 +115,15 @@ namespace libipc
 			}
 			return false;
 		}
+
+		template<typename exit_f>
+		class ScopeGuard
+		{
+		public:
+			ScopeGuard();
+
+		};
+
 	}
 
 }

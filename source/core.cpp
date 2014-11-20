@@ -23,5 +23,55 @@ limitations under the License.
 
 namespace libipc
 {
+	namespace core
+	{
+		template<typename T>
+		class symbol_table
+		{
+		public:
+			symbol_table(unsigned number_of_ts)
+			: n_str_pos_(0),symbol_table_(number_of_ts)
+			{
+				str_load_.store(false);
+			}
+
+			~symbol_table()
+			{
+
+			}
+
+			int register_symbol(const T value)
+			{
+				std::atomic<int> spin = 0;
+
+				while (sym_load_) { ++spin; }
+				sym_load_.store(true);
+				if (n_str_pos_ < symbol_table_.max_size())
+				{
+					memset(&symbol_table_[n_sym_pos_], 0, sizeof(T));
+					memcpy_s(&symbol_table_, sizeof(T), &value, sizeof(T));
+
+					auto r_tmp = n_str_pos_.load();
+					++n_sym_pos_;
+					sym_load_.store(false);
+					return r_tmp;
+				}
+				else{ sym_load_.store(false); return -1; }
+			}
+
+			T get_symbol(unsigned handle) const
+			{
+				if (handle < n_str_pos_)
+				{
+					return symbol_table_[handle];
+				}
+			}
+
+		private:
+			std::atomic<int> n_sym_pos_;
+			std::atomic_bool sym_load_;
+			libipc_utillity::Array<T> symbol_table_;
+		};
+	}
 
 }
