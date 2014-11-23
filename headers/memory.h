@@ -33,18 +33,28 @@ namespace libipc
 		using namespace types;
 
 		class LargePageBlock 
-		: ObjectMap<ObjectMapLims::u8_max_ports_per_domain, ObjectMapLims::u8_max_links_per_domain>
 		{
 		public:
+			LargePageBlock();
 			LargePageBlock(unsigned);
+			~LargePageBlock();
+
+			template<typename T, unsigned index>
+			void Set(T&);
 
 			template<typename T>
-			void DirectReferenceTo(handle, T&);
-
+			T& operator()(size_t byte_offset)
+			{
+				if (byte_offset > bytes_allocated_)
+				{
+					LogMessage<MessageSeverity::error_continue>(std::string(""), std::string(""));
+				}
+				return block_ +
+			}
 
 		private:
 			byte* block_;
-			unsigned bytes_allocated_;
+			size_t bytes_allocated_;
 		};
 	}
 }

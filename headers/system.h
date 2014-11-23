@@ -22,7 +22,7 @@ limitations under the License.
 #pragma once
 #include <libipc\headers\common.h>
 #include <libipc\headers\types.h>
-
+#include <libipc\headers\utillity.h>
 
 
 namespace libipc
@@ -34,8 +34,29 @@ namespace libipc
 			read_only, write_only, read_write, read_write_execute
 		};
 
+		enum class MessageSeverity
+		{
+			informational, warning, error_continue, error_abort
+		};
+
+		class SystemMessage
+		{
+		public:
+
+		};
+
+		template<MessageSeverity ms>
+		void LogMessage(const std::string, const SystemMessage&);
+
+		template<MessageSeverity ms>
+		void LogMessage(const std::string, const std::string);
+
+		//If SystemError(...) returns true then a fault has occured and is stored in the supplied class
+		//otherwise the return will reflect the os's success code.
+		bool SystemError(SystemMessage&);
+
 		template<typename T, HeapAccessControl OS_flag = HeapAccessControl::read_write>
-		T* CommitFromSystemHeap(unsigned count = 1);
+		byte* CommitFromSystemHeap(unsigned count = 1);
 
 		template<typename T>
 		void DecommitFromSystemHeap(unsigned, T*);

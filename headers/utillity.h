@@ -38,7 +38,8 @@ namespace libipc
 			{
 
 			}
-			Array(unsigned allocations) : Array()
+
+			Array(size_t allocations) : Array()
 			{
 				if (allocations != 0)
 				{
@@ -46,12 +47,25 @@ namespace libipc
 					data_ = CommitFromSystemHeap<T, HeapAccessControl::read_write>(allocs_);
 				}
 			}
-			Array(unsigned allocations, T value) : Array(allocations)
+			
+			Array(size_t allocations, T value) : Array(allocations)
 			{
 				for (auto &i : data_)
 				{
 					i = value;
 				}
+			}
+
+			Array(size_t allocations, T* block)
+			{
+				if (allocation == 0)
+				{
+
+				}
+			}
+			const size_t Size() const
+			{
+				return alloc_;
 			}
 
 			~Array()
@@ -70,7 +84,7 @@ namespace libipc
 
 		private:
 			T* data_;
-			unsigned allocs_;
+			size_t allocs_;
 		};
 
 		template<typename ...T>

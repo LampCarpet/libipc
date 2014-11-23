@@ -19,12 +19,16 @@ limitations under the License.
 
 */
 #include <libipc\libipc.h>
-
+#include <libipc\headers\memory.h>
 
 namespace libipc
 {
 	namespace core
 	{
+		memory::LargePageBlock table(23);
+
+		
+
 		template<typename T>
 		class symbol_table
 		{
@@ -37,7 +41,7 @@ namespace libipc
 
 			~symbol_table()
 			{
-
+			
 			}
 
 			int register_symbol(const T value)

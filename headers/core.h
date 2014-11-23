@@ -29,7 +29,7 @@ Description:
 		 the memory space and functionality exposed by libipc.
 
 File debug refs:
-				\core::, 0x01, (type of: debug namespace)
+				\core::, 0x01, (type of: namespace)
 
 */
 #pragma once
