@@ -37,13 +37,17 @@ namespace libipc
 		public:
 			LargePageBlock();
 			LargePageBlock(unsigned);
+
+			LargePageBlock(LargePageBlock&) = delete;
+			LargePageBlock(LargePageBlock&&) = delete;
+
 			~LargePageBlock();
 
 			template<typename T, unsigned index>
 			void Set(T&);
 
 			template<typename T>
-			T& operator()(size_t byte_offset)
+			T& operator[](size_t byte_offset)
 			{
 				if (byte_offset > bytes_allocated_)
 				{

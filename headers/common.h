@@ -23,6 +23,6 @@ limitations under the License.
 #include <array>
 #include <atomic>
 #include <memory>
-
+#include <functional>
 #define WIN32
 

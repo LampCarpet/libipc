@@ -87,12 +87,66 @@ namespace libipc
 			size_t allocs_;
 		};
 
+		class Log
+		{
+		public:
+			template<MessageSeverity ms>
+			void operator()();
+			
+			template<MessageSeverity ms, typename T>
+			static void SetHandler(std::functiuo);
+
+		private:
+
+		};
+
+		
+
+		template<typename ...T>
+		class CacheableObject
+		{
+			size_t pos_;
+		public:
+
+			inline u32 Range();
+
+			auto operator[](size_t pos)->decltype(vars_[pos])
+			{
+				return vars_[pos];
+			}
+
+			size_t Elements()
+			{
+				return sizeof(T);
+			}
+
+			auto NextElement() -> decltype(vars_[pos])
+			{
+				if (pos + 1 > sizeof(vars_))
+				{
+					++pos;
+					return vars_[pos];
+				}
+			}
+
+		private:
+
+			T ... vars_;
+		};
+
+		typedef CacheableObject<int,std::string,int> test;	
+						
+
+		template<typename T>
+
+
 		template<typename ...T>
 		class StripedArray
 		{
 		public:
 			StripedArray() : count_(0)
 			{
+				
 
 			}
 

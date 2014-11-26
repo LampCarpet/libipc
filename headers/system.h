@@ -29,19 +29,47 @@ namespace libipc
 {
 	namespace system
 	{
-		enum class HeapAccessControl
+		using namespace types;
+
+		enum class AccessControl
 		{
-			read_only, write_only, read_write, read_write_execute
+			no_init,read_only, write_only, read_write, read_write_execute
 		};
 
-		enum class MessageSeverity
+
+		enum class FileState
 		{
-			informational, warning, error_continue, error_abort
+			file_not_init,
+			file_exists_open_handle,
+			file_exists_closed_handle,
+			file_not_found
+		};
+
+		enum class OperatingSystem
+		{
+			Windows
 		};
 
 		class SystemMessage
 		{
 		public:
+			SystemMessage(std::string context);
+
+
+		private:
+			bool has_error_ = false;
+			std::string context, msg;
+		};
+
+
+
+		template<OperatingSystem os>
+		class File
+		{
+
+		public:
+
+		private:
 
 		};
 
@@ -55,7 +83,7 @@ namespace libipc
 		//otherwise the return will reflect the os's success code.
 		bool SystemError(SystemMessage&);
 
-		template<typename T, HeapAccessControl OS_flag = HeapAccessControl::read_write>
+		template<typename T, AccessControl OS_flag = AccessControl::read_write>
 		byte* CommitFromSystemHeap(unsigned count = 1);
 
 		template<typename T>
